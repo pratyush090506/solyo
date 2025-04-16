@@ -3,8 +3,14 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Capture from './pages/Capture'
+import Highlights from './pages/Highlights'
+import Plan from './pages/Plan'
 import { auth } from './services/firebase'
 import { User } from 'firebase/auth'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Profile from './pages/Profile'
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -17,10 +23,18 @@ function App() {
   },[])
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path = '/' element = {user ? <Navigate to = "/home" /> : <Login/>}/>
-        <Route path = '/home' element = {user ? <Home /> :<Navigate to = '/' /> }/>
-      </Routes>
+      {user && <Navbar />}
+        <div className='page'>
+          <Routes>
+            <Route path = '/' element = {user ? <Navigate to = "/home" /> : <Login/>}/>
+            <Route path = '/home' element = {user ? <Home /> :<Navigate to = '/' /> }/>
+            <Route path = '/capture' element = {user ? <Capture /> : <Navigate to = '/'/>}/>
+            <Route path = '/highlights' element = {user ? <Highlights /> : <Navigate to = '/'/>}/>
+            <Route path = '/plan' element = {user ? <Plan />: <Navigate to = '/'/>}/>
+            <Route path = '/profile' element = {user ? <Profile />: <Navigate to ='/' />}/>
+          </Routes>
+        </div>
+      {user && <Footer />}
     </BrowserRouter>
   )
 }

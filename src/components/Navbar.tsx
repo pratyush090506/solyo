@@ -1,22 +1,31 @@
 import React from 'react'
 import { FiMapPin, FiUser,FiLogOut } from 'react-icons/fi'
 import { motion } from 'framer-motion'
-
+import {Link} from 'react-router-dom'
+import { FaUserCircle } from 'react-icons/fa'
+import './Navbar.css'
+import Logo from '../assets/logo.png'
 const Navbar: React.FC = () =>{
     return (
-        <motion.nav
-            className="flex justify-between items-center px-6 py-4 shadow-md bg-white sticky top-0 z-50"
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ type: 'spring', stiffness: 80 }}>
-
-            <div className="text-xl font-bold text-blue-600">Waya</div>
-            <div className="flex gap-4 items-center text-gray-700 text-lg">
-                <FiMapPin className="cursor-pointer hover:text-blue-500" />
-                <FiUser className="cursor-pointer hover:text-blue-500" />
-                <FiLogOut className="cursor-pointer hover:text-red-500" />
+        
+        <nav className='navy'>
+            <div className="text-2xl font-bold text-indigo-600">
+                <Link to="/">Waya 🌍</Link>
             </div>
-        </motion.nav>
+
+            <div className='tabs'>
+                <Link to = '/capture' className='hover:text-indigo-600 transition'>Capture</Link>
+                <Link to = '/plan' className="hover:text-indigo-600 transition">Plan Itinerary</Link>
+                <Link to = '/highlights' className='hover:text-indigo-600 transition'>Highlights</Link>
+            </div>
+
+            <div className="text-gray-600 text-2xl cursor-pointer hover:text-indigo-800">
+                <Link to='/profile'>
+                    <FaUserCircle size={30}/>
+
+                </Link>
+            </div>
+        </nav>
     )
 }
 export default Navbar

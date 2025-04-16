@@ -1,0 +1,47 @@
+.navy {
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em 2em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tabs {
+    display: flex;
+    gap: 10em;
+    align-items: center;
+}
+
+.tabs a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.tabs a:hover {
+    color: #e2ff3e;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}

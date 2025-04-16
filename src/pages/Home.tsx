@@ -7,11 +7,10 @@ import Footer from '../components/Footer'
 const Home = () => {
   return (
     <div>
-    <Navbar />
     <main className="p-6">
-      {`Welcome to Waya`}
+      {<h1>Welcome to Waya</h1>}
     </main>
-    <Footer />
+ 
   </div>
   )
 }
