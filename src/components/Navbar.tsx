@@ -4,13 +4,13 @@ import { motion } from 'framer-motion'
 import {Link} from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import './Navbar.css'
-import Logo from '../assets/logo.png'
+import Logo from '../assets/solyo.svg'
 const Navbar: React.FC = () =>{
     return (
         
         <nav className='navy'>
             <div className="text-2xl font-bold text-indigo-600">
-                <Link to="/">Waya 🌍</Link>
+                <Link to="/"><img src={Logo } style={{height: '3.5rem'}} alt="logo"/></Link>
             </div>
 
             <div className='tabs'>
