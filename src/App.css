@@ -14,6 +14,10 @@ body, html, #root {
 .page {
   background-position: 100% 100%;
   padding-top: 5em; /* Adjust according to actual navbar height */
+  display: flex; /* Make .page a flex container */
+  flex-direction: row; /* Arrange children (Plan component) in a row */
+  width: 100%; /* Ensure it takes full width */
+  height: 100%; /* Ensure it takes full height */
 }
 
 .logo {

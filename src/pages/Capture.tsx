@@ -3,11 +3,11 @@ import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { FaMicrophone, FaStop, FaPlay } from "react-icons/fa";
 import { FaCamera, FaSave } from "react-icons/fa";
-import { db, storage } from "../services/firebase"; // Import the initialized services
-import { serverTimestamp, collection, addDoc } from "firebase/firestore"; // Import Firestore functions
-import { ref as storageRef, uploadBytesResumable, getDownloadURL as storageGetDownloadURL } from "firebase/storage"; // Import Storage functions
-import { v4 as uuidv4 } from 'uuid'; // For generating unique filenames
-
+import { db, storage } from "../services/firebase";
+import { serverTimestamp, collection, addDoc } from "firebase/firestore";
+import { ref as storageRef, uploadBytesResumable, getDownloadURL as storageGetDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
+import useMemoryStore from '../components/Store';
 import "./Capture.css";
 
 function Capture() {
@@ -19,6 +19,7 @@ function Capture() {
   const audioChunks = useRef([]);
   const [location, setLocation] = useState(null);
   const navigate = useNavigate();
+  const setCapturedMemory = useMemoryStore((state) => state.setCapturedMemory);
 
   const onDrop = (acceptedFiles) => {
     setImage(URL.createObjectURL(acceptedFiles[0]));
@@ -55,8 +56,8 @@ function Capture() {
       };
 
       let imageURL = null;
-      if (image instanceof File) {
-        const imageStorageRef = storageRef(storage, `images/${uuidv4()}`); 
+      if (image) {
+        const imageStorageRef = storageRef(storage, `images/${uuidv4()}`);
         const snapshot = await uploadBytesResumable(imageStorageRef, image);
         imageURL = await storageGetDownloadURL(snapshot.ref);
         memoryData.imageURL = imageURL;
@@ -65,15 +66,25 @@ function Capture() {
       let audioStorageURL = null;
       if (audioURL) {
         const audioBlob = await fetch(audioURL).then(res => res.blob());
-        const audioStorageRef = storageRef(storage, `audio/${uuidv4()}.webm`); 
-        const snapshot = await uploadBytesResumable(audioStorageRef, audioBlob); 
-        audioStorageURL = await storageGetDownloadURL(snapshot.ref); 
+        const audioStorageRef = storageRef(storage, `audio/${uuidv4()}.webm`);
+        const snapshot = await uploadBytesResumable(audioStorageRef, audioBlob);
+        audioStorageURL = await storageGetDownloadURL(snapshot.ref);
         memoryData.audioURL = audioStorageURL;
       }
 
-      const memoriesCollection = collection(db, 'memories'); 
-      await addDoc(memoriesCollection, memoryData); 
+      const memoriesCollection = collection(db, 'memories');
+      await addDoc(memoriesCollection, memoryData);
       console.log("Memory saved to Firebase!");
+
+      // Save the captured data to the store
+      setCapturedMemory({
+        imageURL: imageURL || null,
+        note: note,
+        audioURL: audioStorageURL || null,
+        location: location || null,
+      });
+
+      console.log("Captured Memory in Store before navigation:", useMemoryStore.getState().capturedMemory);
       navigate("/highlights");
 
     } catch (error) {
@@ -167,7 +178,7 @@ function Capture() {
               </button>
               <div className="button-row">
                 <button onClick={captureMemory}>
-                  <FaCamera /> Capture
+                  <FaCamera /> Capture Location
                 </button>
               </div>
             </div>

@@ -3,13 +3,13 @@ import './Home.css'; // Import the CSS file
 
 // Import your assets
 import HeroImage from '../assets/hero1.png';
-import IconJournal from '../assets/hero1.png';
-import IconVoice from '../assets/hero1.png';
-import IconLocationShare from '../assets/hero1.png';
-import Showcase1 from '../assets/hero1.png';
-import Showcase2 from '../assets/hero1.png';
-import Showcase3 from '../assets/hero1.png';
+import Showcase1 from '../assets/hero.png';
+import Showcase2 from '../assets/hero2.png';
+import Showcase3 from '../assets/hero3.png';
+import { FaCamera, FaLocationArrow, FaMicrophone } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
+import { color } from 'framer-motion';
 const Home: React.FC = () => {
   return (
     <div className="home-page-content"> {/* Changed class name to avoid conflicts */}
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
             <div className="hero-text">
               <h1>Capture Your Journey, Inside and Out.</h1>
               <p className="subheadline">Relive the feelings behind the photos. Pair your cherished travel moments with personal notes, voice reflections, and location pins.</p>
-              <a href="#download" className="cta-button">Start Capturing Your Memories</a>
+              <Link to = '/capture' className="cta-button">Start Capturing Your Memories </Link>
             </div>
           </div>
         </div>
@@ -28,22 +28,22 @@ const Home: React.FC = () => {
 
       <section id="features" className="features-section">
         <div className="container">
-          <h2>Key Features</h2>
-          <div className="features-grid">
+          <h2 style={{color: "white"}}>Key Features</h2>
+          <div className="features-grid" style={{color: "white"}}>
             <div className="feature">
-              <img src={IconJournal} alt="Introspective Capture Icon" />
+              <FaCamera size={50} color="black" />
               <h3>Introspective Capture</h3>
-              <p>Document your thoughts and feelings alongside your photos, creating a richer memory.</p>
+              <p style={{color: "black"}}>Document your thoughts and feelings alongside your photos, creating a richer memory.</p>
             </div>
             <div className="feature">
-              <img src={IconVoice} alt="Rich Media Pairing Icon" />
+              <FaMicrophone size={50} color='black' />
               <h3>Rich Media Pairing</h3>
-              <p>Enhance your photos with text notes or immersive voice reflections for deeper context.</p>
+              <p style={{color: "black"}}>Enhance your photos with text notes or immersive voice reflections for deeper context.</p>
             </div>
             <div className="feature">
-              <img src={IconLocationShare} alt="Location & Sharing Icon" />
+              <FaLocationArrow size={50} color='black'/>
               <h3>Location & Sharing</h3>
-              <p>Pinpoint where you captured each moment and share your stories with a community that understands.</p>
+              <p style={{color: "black"}}>Pinpoint where you captured each moment and share your stories with a community that understands.</p>
             </div>
           </div>
         </div>
@@ -51,9 +51,9 @@ const Home: React.FC = () => {
 
       <section id="why-solyo" className="why-solyo-section">
         <div className="container">
-          <h2>Why Soyo?</h2>
+          <h2 style = {{color: "white"}}>Why Solyo?</h2>
           <div className="why-solyo-content">
-            <p>Soyo is more than just a photo app. It's designed for the mindful traveler who wants to preserve not just the sights, but the emotions and reflections that make those moments truly special. Unlike fleeting social media posts, Soyo helps you build a personal and lasting travel journal...</p>
+            <p>Solyo is more than just a photo app. It's designed for the mindful traveler who wants to preserve not just the sights, but the emotions and reflections that make those moments truly special. Unlike fleeting social media posts, Soyo helps you build a personal and lasting travel journal...</p>
             <ul>
               <li>Emphasizes personal reflection and deeper meaning.</li>
               <li>Creates a truly personal and rich travel journal.</li>
@@ -66,19 +66,19 @@ const Home: React.FC = () => {
 
       <section id="showcase" className="showcase-section">
         <div className="container">
-          <h2>Visual Storytelling Showcase</h2>
+          <h2 style={{color: "white"}}>Visual Storytelling Showcase</h2>
           <div className="showcase-grid">
             <div className="showcase-item">
               <img src={Showcase1} alt="Soyo Memory 1" />
-              <p className="caption">A quiet moment of reflection by the ancient ruins...</p>
+              <p className="caption">Their is a fresh and magical vibe 38000 ft above amidst the clouds watching the sun rise.</p>
             </div>
             <div className="showcase-item">
               <img src={Showcase2} alt="Soyo Memory 2" />
-              <p className="caption">The vibrant energy of the bustling marketplace, captured in a snapshot and a voice note.</p>
+              <p className="caption">When I see a sun-kissed escalator, I feel I could also get a pic like that 😅</p>
             </div>
             <div className="showcase-item">
               <img src={Showcase3} alt="Soyo Memory 3" />
-              <p className="caption">Gazing at the breathtaking sunset, a feeling I'll never forget.</p>
+              <p className="caption">The fog in the air around feels like a punch of thrill and generates an excitement for a journey filled with craziness!</p>
             </div>
           </div>
         </div>
@@ -86,12 +86,8 @@ const Home: React.FC = () => {
 
       <section id="download" className="download-section">
         <div className="container">
-          <h2>Start Capturing Your Memories Today</h2>
-          <p>Download Soyo and begin your journey of mindful travel documentation.</p>
-          <div className="download-buttons">
-            <a href="#" className="app-store-btn">Download on App Store</a>
-            <a href="#" className="google-play-btn">Get it on Google Play</a>
-          </div>
+          <h2 style={{color: "white"}}>Try Solyo Now</h2>
+          <h3>Download Soyo and begin your journey of mindful travel documentation.</h3>
         </div>
       </section>
     </div>

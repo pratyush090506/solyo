@@ -1,0 +1,44 @@
+.highlights-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .memory-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .highlight-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .highlight-note {
+    margin-bottom: 10px;
+    font-style: italic;
+    color: #555;
+  }
+  
+  .highlight-audio {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .highlight-location {
+    color: #777;
+    font-size: 0.9em;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
