@@ -66,18 +66,6 @@ Take a visual tour of Solyo:
 
 ---
 
-### Budget
-
-![Image](https://github.com/user-attachments/assets/49fe6a3a-290f-484d-934d-a6ebdda3cc39)
-
----
-
-### Insights
-
-![Image](https://github.com/user-attachments/assets/5a224b54-54fc-46a0-bad9-5a5bd11657e1)
-
----
-
 
 
 ## Try Solyo Now !!
