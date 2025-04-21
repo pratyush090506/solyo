@@ -1,6 +1,6 @@
 # 🗻 Solyo ✈️
 
-Solyo is your travel capturing buddy. It is a smart, AI powered platform which allows you to capture your reflective moments in your own way !! ;) With Fortura you can pair your funky, quirky or just soulful images with your thoughts, voice notes and even the exact coordinates where you captured that moment. 
+Solyo is your travel capturing buddy. It is a smart, AI powered platform which allows you to capture your reflective moments in your own way !! ;) With Solyo you can pair your funky, quirky or just soulful images with your thoughts, voice notes and even the exact coordinates where you captured that moment. 
 
 ---
 
@@ -8,7 +8,7 @@ Solyo is your travel capturing buddy. It is a smart, AI powered platform which a
 
 -   🔐 **Secure Authentication:** Sign in easily and securely with Google Sign-In.
 -   📊 **Capture Moments:** Pair images with notes, voice and location.
--   📉 **Plan Itinerary:** Answer some Fun questions related to dream vacay to get your itinerary generated exclusively by AI.
+-   🛫 **Plan Itinerary:** Answer some Fun questions related to dream vacay to get your itinerary generated exclusively by AI.
 -   🧠 **AI-Powered Recommendations:** Based on your personality Solyo would suggest destinations you should travel to !! powered by Google's Gemini API.
 -   💾 **Persistent Data:** Your Beautiful Moments are securely stored locally using AsyncStorage.
 -   📱 **Intuitive Mobile UI:** A clean and user-friendly interface designed specifically for mobile devices.
