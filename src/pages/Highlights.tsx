@@ -1,37 +1,47 @@
-import React from 'react';
-import useMemoryStore from '../components/Store';
-import "./Highlights.css"; // Assuming you have a Highlights.css file
+import React, { useEffect, useState } from 'react';
+import useMemoryStore from '../components/store';
+import './Highlights.css';
 
-function Highlights() {
-  const capturedMemory = useMemoryStore((state) => state.capturedMemory);
-  console.log("Captured Memory in Highlights on render:", capturedMemory);
+const Highlights: React.FC = () => {
+  const { capturedMemory } = useMemoryStore();
+  const [memory, setMemory] = useState(capturedMemory);
+
+  useEffect(() => {
+    setMemory(capturedMemory);
+  }, [capturedMemory]);
 
   return (
     <div className="highlights-container">
-      <h2>Your Precious Moments</h2>
-      {capturedMemory && (
-        <div className="memory-item">
-          {capturedMemory.imageURL && (
-            <img src={capturedMemory.imageURL} alt="Captured Image" className="highlight-image" />
+      <h2 style={{color: "white"}}>Your Highlighted Memory</h2>
+      {memory ? (
+        <div className="memory-card">
+          {memory.imageURL && (
+            <img src={memory.imageURL} alt="Captured" className="highlight-image" />
           )}
-          {capturedMemory.note && (
-            <p className="highlight-note">Note: {capturedMemory.note}</p>
-          )}
-          {capturedMemory.audioURL && (
-            <audio src={capturedMemory.audioURL} controls className="highlight-audio" />
-          )}
-          {capturedMemory.location && capturedMemory.location.lat && capturedMemory.location.lon && (
-            <p className="highlight-location">
-              Location: Latitude: {capturedMemory.location.lat}, Longitude: {capturedMemory.location.lon}
-            </p>
-          )}
+
+          <div className="memory-content">
+            {memory.note && (
+              <p className="highlight-note">📝 {memory.note}</p>
+            )}
+
+            {memory.audioURL && (
+              <div className="audio-wrapper">
+                <audio src={memory.audioURL} controls />
+              </div>
+            )}
+
+            {memory.location && memory.location.lat && memory.location.lon && (
+              <p className="highlight-location" >
+                📍 {memory.location.lat.toFixed(4)}, {memory.location.lon.toFixed(4)}
+              </p>
+            )}
+          </div>
         </div>
-      )}
-      {!capturedMemory && (
-        <p>No recent memories captured.</p>
+      ) : (
+        <p className="no-memory">No recent memories captured.</p>
       )}
     </div>
   );
-}
+};
 
 export default Highlights;

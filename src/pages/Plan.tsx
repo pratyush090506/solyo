@@ -9,7 +9,7 @@ const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
 const questions = [
-  "Which city are you from?",
+  "Which city are you starting your journey from?",
   "Which dreamy country would like to travel to??",
   "And the specific city you'd like to visit?",
   "What's the vibe of this escapade? (Vacay? Biz trip? Thrill-seeking?)",
@@ -186,7 +186,7 @@ function Plan() {
         <div className="itinerary-content">
           {loading && step === questions.length && (
             <div className="loading-indicator">
-              Conjuring Your Journey <div className="loader"></div>
+              Generating Itinerary <div className="loader"></div>
             </div>
           )}
           {itinerary && (

@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
-import { FaMicrophone, FaStop, FaPlay } from "react-icons/fa";
-import { FaCamera, FaSave } from "react-icons/fa";
+import { FaMicrophone, FaStop, FaLocationArrow, FaSave } from "react-icons/fa";
+
 import { db, storage } from "../services/firebase";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { ref as storageRef, uploadBytesResumable, getDownloadURL as storageGetDownloadURL } from "firebase/storage";
+
 import { v4 as uuidv4 } from 'uuid';
 import useMemoryStore from '../components/Store';
 import "./Capture.css";
@@ -48,48 +49,55 @@ function Capture() {
 
   const saveMemory = async () => {
     console.log("Saving Memory...", { image, note, audioURL, location });
+
+    const localMemoryData = {
+      note,
+      location,
+      timestamp: new Date().toISOString(),
+      imageURL: image || null,
+      audioURL: audioURL || null,
+    };
+
     try {
+      localStorage.setItem("capturedMemory", JSON.stringify(localMemoryData));
+
+      setCapturedMemory(localMemoryData);
+
       const memoryData = {
-        note: note,
-        location: location,
+        note,
+        location,
         timestamp: serverTimestamp(),
       };
 
       let imageURL = null;
       if (image) {
-        const imageStorageRef = storageRef(storage, `images/${uuidv4()}`);
-        const snapshot = await uploadBytesResumable(imageStorageRef, image);
-        imageURL = await storageGetDownloadURL(snapshot.ref);
+        const res = await fetch(image);
+        const blob = await res.blob();
+        const imgRef = storageRef(storage, `images/${uuidv4()}`);
+        const snap = await uploadBytesResumable(imgRef, blob);
+        imageURL = await storageGetDownloadURL(snap.ref);
         memoryData.imageURL = imageURL;
       }
+
 
       let audioStorageURL = null;
       if (audioURL) {
         const audioBlob = await fetch(audioURL).then(res => res.blob());
-        const audioStorageRef = storageRef(storage, `audio/${uuidv4()}.webm`);
-        const snapshot = await uploadBytesResumable(audioStorageRef, audioBlob);
-        audioStorageURL = await storageGetDownloadURL(snapshot.ref);
+        const audioRef = storageRef(storage, `audio/${uuidv4()}.webm`);
+        const snap = await uploadBytesResumable(audioRef, audioBlob);
+        audioStorageURL = await storageGetDownloadURL(snap.ref);
         memoryData.audioURL = audioStorageURL;
       }
 
-      const memoriesCollection = collection(db, 'memories');
-      await addDoc(memoriesCollection, memoryData);
-      console.log("Memory saved to Firebase!");
-
-      // Save the captured data to the store
-      setCapturedMemory({
-        imageURL: imageURL || null,
-        note: note,
-        audioURL: audioStorageURL || null,
-        location: location || null,
-      });
-
-      console.log("Captured Memory in Store before navigation:", useMemoryStore.getState().capturedMemory);
-      navigate("/highlights");
+      await addDoc(collection(db, "memories"), memoryData);
+      console.log("Memory synced to Firebase!");
 
     } catch (error) {
-      console.error("Error saving memory to Firebase:", error);
+      console.error("Error saving memory:", error);
     }
+
+
+    navigate("/highlights");
   };
 
   const startRecording = async () => {
@@ -151,13 +159,14 @@ function Capture() {
                 )}
               </div>
             </div>
+
             <div className="note-box">
               <textarea
                 placeholder="Your journey starts here..."
-                color="black"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
               />
+
               <div className="audio-controls">
                 {!isRecording && !audioURL && (
                   <button onClick={startRecording}>
@@ -169,18 +178,18 @@ function Capture() {
                     <FaStop /> Stop Recording
                   </button>
                 )}
-                {audioURL && (
-                  <audio src={audioURL} controls />
-                )}
+                {audioURL && <audio src={audioURL} controls />}
               </div>
+
+              <div className="button-row">
+                <button onClick={captureMemory}>
+                  <FaLocationArrow /> Capture Location
+                </button>
+              </div>
+
               <button onClick={saveMemory} className="save-memory-button">
                 <FaSave /> Save Memory
               </button>
-              <div className="button-row">
-                <button onClick={captureMemory}>
-                  <FaCamera /> Capture Location
-                </button>
-              </div>
             </div>
           </div>
         </div>

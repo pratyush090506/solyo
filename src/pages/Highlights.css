@@ -1,44 +1,78 @@
-.highlights-container {
-    padding: 20px;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+  .highlights-container {
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  .memory-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    width: 80%;
+  h2 {
+    font-size: 2.2rem;
+    color: #2d2e32;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  .memory-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 90%;
     max-width: 600px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .memory-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   }
   
   .highlight-image {
-    max-width: 100%;
+    width: 100%;
     height: auto;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    display: block;
+  }
+  
+  .memory-content {
+    padding: 20px;
   }
   
   .highlight-note {
-    margin-bottom: 10px;
-    font-style: italic;
-    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #444;
+    background: #f0f0f0;
+    padding: 10px 15px;
+    border-radius: 8px;
   }
   
-  .highlight-audio {
-    margin-bottom: 10px;
+  .audio-wrapper {
+    margin-bottom: 15px;
+  }
+  
+  .audio-wrapper audio {
     width: 100%;
+    outline: none;
   }
   
   .highlight-location {
-    color: #777;
-    font-size: 0.9em;
+    font-size: 0.95rem;
+    color: #666;
+    text-align: right;
   }
   
-  h2 {
-    color: #333;
-    margin-bottom: 20px;
+  .no-memory {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 40px;
   }
+  
+  
