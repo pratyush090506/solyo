@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FaUserCircle, FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
 import Logo from '../assets/solyo.svg';
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className='navy'>
+    <nav className="navy">
       <div className="logo-area">
         <Link to="/">
           <img src={Logo} style={{ height: '3.5rem' }} alt="logo" />
@@ -22,13 +28,28 @@ const Navbar: React.FC = () => {
       </div>
 
       <div className={`tabs ${menuOpen ? 'active' : ''}`}>
-        <Link to='/capture' onClick={toggleMenu}>Capture</Link>
-        <Link to='/plan' onClick={toggleMenu}>Plan Itinerary</Link>
-        <Link to='/highlights' onClick={toggleMenu}>Highlights</Link>
+        <Link
+          to="/capture"
+          className={location.pathname === '/capture' ? 'active' : ''}
+        >
+          Capture
+        </Link>
+        <Link
+          to="/plan"
+          className={location.pathname === '/plan' ? 'active' : ''}
+        >
+          Plan Itinerary
+        </Link>
+        <Link
+          to="/highlights"
+          className={location.pathname === '/highlights' ? 'active' : ''}
+        >
+          Highlights
+        </Link>
       </div>
 
       <div className="profile-icon">
-        <Link to='/profile'>
+        <Link to="/profile">
           <FaUserCircle size={30} />
         </Link>
       </div>

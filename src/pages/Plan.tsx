@@ -3,8 +3,6 @@ import axios from 'axios';
 import './Plan.css';
 import { auth } from '../services/firebase';
 
-import SolyoWatermark from '../assets/solyowm.png';
-
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
@@ -104,22 +102,6 @@ function Plan() {
       const x = 15;
       let y = 20;
       const lineHeight = 7;
-      const watermarkWidth = 40;
-      const img = new Image();
-      img.src = SolyoWatermark;
-      img.onload = () => {
-        const watermarkWidth = 100
-        const watermarkHeight = (img.height / img.width) * watermarkWidth;
-      }
-      const watermarkHeight = (SolyoWatermark.height / SolyoWatermark.width) * watermarkWidth;
-      const watermarkX = pageWidth - watermarkWidth - 10;
-      const watermarkY = pageHeight - watermarkHeight - 10;
-
-      try {
-        pdf.addImage(SolyoWatermark, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
-      } catch (error) {
-        console.error("Error adding watermark:", error);
-      }
 
       const formattedText = itinerary.replace(/<br\/>/g, '\n');
       const lines = pdf.splitTextToSize(formattedText, pageWidth - 2 * x);
@@ -128,14 +110,9 @@ function Plan() {
       pdf.text(`${user?.displayName?.split(' ')[0] || 'Your'}'s Itinerary!`, x, y);
       y += 15;
 
-      lines.forEach((line:string) => {
+      lines.forEach((line: string) => {
         if (y > pageHeight - 20) {
           pdf.addPage();
-          try {
-            pdf.addImage(SolyoWatermark, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
-          } catch (error) {
-            console.error("Error adding watermark on new page:", error);
-          }
           y = 20;
         }
         pdf.text(line, x, y);

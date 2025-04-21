@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { FieldValue } from 'firebase/firestore';
+import { create } from "zustand";
+import { FieldValue } from "firebase/firestore";
 
-interface Memory {
+export interface Memory {
   imageURL: string | null;
   note: string;
   audioURL: string | null;
@@ -9,7 +9,7 @@ interface Memory {
     lat: number;
     lon: number;
   } | null;
-  timestamp: FieldValue | string; // <-- allow both
+  timestamp: FieldValue | string;
 }
 
 interface MemoryStore {

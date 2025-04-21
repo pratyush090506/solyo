@@ -1,4 +1,4 @@
-import  { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { FaMicrophone, FaStop, FaLocationArrow, FaSave } from "react-icons/fa";
@@ -7,8 +7,9 @@ import { db, storage } from "../services/firebase";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { ref as storageRef, uploadBytesResumable, getDownloadURL as storageGetDownloadURL } from "firebase/storage";
 
-import { v4 as uuidv4 } from 'uuid';
-import useMemoryStore from '../components/Store';
+import { v4 as uuidv4 } from "uuid";
+import useMemoryStore from "../components/Store";
+import type { Memory } from "../components/Store";
 import "./Capture.css";
 
 function Capture() {
@@ -19,21 +20,18 @@ function Capture() {
   const [isRecording, setIsRecording] = useState(false);
   const navigate = useNavigate();
   const setCapturedMemory = useMemoryStore((state) => state.setCapturedMemory);
-  
 
-const mediaRecorder = useRef<MediaRecorder | null>(null);
-const audioChunks = useRef<Blob[]>([]);
-
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const audioChunks = useRef<Blob[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
     setImage(URL.createObjectURL(acceptedFiles[0]));
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: {"image/*":[]},
+    accept: { "image/*": [] },
     onDrop,
   });
-
 
   const captureMemory = () => {
     if (navigator.geolocation) {
@@ -54,7 +52,7 @@ const audioChunks = useRef<Blob[]>([]);
   const saveMemory = async () => {
     console.log("Saving Memory...", { image, note, audioURL, location });
 
-    const localMemoryData = {
+    const localMemoryData: Memory = {
       note,
       location,
       timestamp: new Date().toISOString(),
@@ -64,44 +62,37 @@ const audioChunks = useRef<Blob[]>([]);
 
     try {
       localStorage.setItem("capturedMemory", JSON.stringify(localMemoryData));
+      setCapturedMemory(localMemoryData);
 
-      setCapturedMemory(localMemoryData as Memory);
-
-      const memoryData = {
+      const memoryData: Memory = {
         note,
         location,
         timestamp: serverTimestamp(),
+        imageURL: null,
+        audioURL: null,
       };
 
-      let imageURL = null;
       if (image) {
         const res = await fetch(image);
         const blob = await res.blob();
         const imgRef = storageRef(storage, `images/${uuidv4()}`);
         const snap = await uploadBytesResumable(imgRef, blob);
-        imageURL = await storageGetDownloadURL(snap.ref);
-        memoryData.imageURL = imageURL;
+        memoryData.imageURL = await storageGetDownloadURL(snap.ref);
       }
 
-
-      let audioStorageURL = null;
       if (audioURL) {
-        const audioBlob = await fetch(audioURL).then(res => res.blob());
+        const audioBlob = await fetch(audioURL).then((res) => res.blob());
         const audioRef = storageRef(storage, `audio/${uuidv4()}.webm`);
         const snap = await uploadBytesResumable(audioRef, audioBlob);
-        audioStorageURL = await storageGetDownloadURL(snap.ref);
-        memoryData.audioURL = audioStorageURL;
+        memoryData.audioURL = await storageGetDownloadURL(snap.ref);
       }
 
       await addDoc(collection(db, "memories"), memoryData);
       console.log("Memory synced to Firebase!");
-
+      navigate("/highlights");
     } catch (error) {
       console.error("Error saving memory:", error);
     }
-
-
-    navigate("/highlights");
   };
 
   const startRecording = async () => {
