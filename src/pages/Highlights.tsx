@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useMemoryStore from '../components/store';
+import useMemoryStore from '../components/Store';
 import './Highlights.css';
 
 const Highlights: React.FC = () => {

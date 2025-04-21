@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { FieldValue } from 'firebase/firestore';
 
 interface Memory {
   imageURL: string | null;
@@ -8,6 +9,7 @@ interface Memory {
     lat: number;
     lon: number;
   } | null;
+  timestamp: FieldValue | string; // <-- allow both
 }
 
 interface MemoryStore {

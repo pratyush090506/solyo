@@ -9,7 +9,7 @@ import Showcase3 from '../assets/hero3.png';
 import { FaCamera, FaLocationArrow, FaMicrophone } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-import { color } from 'framer-motion';
+
 const Home: React.FC = () => {
   return (
     <div className="home-page-content"> {/* Changed class name to avoid conflicts */}

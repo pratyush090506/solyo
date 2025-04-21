@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import './Plan.css';
 import { auth } from '../services/firebase';
@@ -20,14 +20,14 @@ const questions = [
 
 function Plan() {
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState<string[]>([]);
   const [currentInput, setCurrentInput] = useState('');
   const [itinerary, setItinerary] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const user = auth.currentUser;
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentInput(event.target.value);
   };
 
@@ -105,12 +105,18 @@ function Plan() {
       let y = 20;
       const lineHeight = 7;
       const watermarkWidth = 40;
+      const img = new Image();
+      img.src = SolyoWatermark;
+      img.onload = () => {
+        const watermarkWidth = 100
+        const watermarkHeight = (img.height / img.width) * watermarkWidth;
+      }
       const watermarkHeight = (SolyoWatermark.height / SolyoWatermark.width) * watermarkWidth;
       const watermarkX = pageWidth - watermarkWidth - 10;
       const watermarkY = pageHeight - watermarkHeight - 10;
 
       try {
-        pdf.addImage(SoyoWatermark, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
+        pdf.addImage(SolyoWatermark, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
       } catch (error) {
         console.error("Error adding watermark:", error);
       }
@@ -122,11 +128,11 @@ function Plan() {
       pdf.text(`${user?.displayName?.split(' ')[0] || 'Your'}'s Itinerary!`, x, y);
       y += 15;
 
-      lines.forEach(line => {
+      lines.forEach((line:string) => {
         if (y > pageHeight - 20) {
           pdf.addPage();
           try {
-            pdf.addImage(SoyoWatermark, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
+            pdf.addImage(SolyoWatermark, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
           } catch (error) {
             console.error("Error adding watermark on new page:", error);
           }

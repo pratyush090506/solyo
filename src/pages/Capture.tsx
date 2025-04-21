@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import  { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { FaMicrophone, FaStop, FaLocationArrow, FaSave } from "react-icons/fa";
@@ -12,24 +12,28 @@ import useMemoryStore from '../components/Store';
 import "./Capture.css";
 
 function Capture() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<string | null>(null);
   const [note, setNote] = useState("");
-  const [audioURL, setAudioURL] = useState(null);
+  const [audioURL, setAudioURL] = useState<string | null>(null);
+  const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const mediaRecorder = useRef(null);
-  const audioChunks = useRef([]);
-  const [location, setLocation] = useState(null);
   const navigate = useNavigate();
   const setCapturedMemory = useMemoryStore((state) => state.setCapturedMemory);
+  
 
-  const onDrop = (acceptedFiles) => {
+const mediaRecorder = useRef<MediaRecorder | null>(null);
+const audioChunks = useRef<Blob[]>([]);
+
+
+  const onDrop = (acceptedFiles: File[]) => {
     setImage(URL.createObjectURL(acceptedFiles[0]));
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
+    accept: {"image/*":[]},
     onDrop,
   });
+
 
   const captureMemory = () => {
     if (navigator.geolocation) {
@@ -61,7 +65,7 @@ function Capture() {
     try {
       localStorage.setItem("capturedMemory", JSON.stringify(localMemoryData));
 
-      setCapturedMemory(localMemoryData);
+      setCapturedMemory(localMemoryData as Memory);
 
       const memoryData = {
         note,
