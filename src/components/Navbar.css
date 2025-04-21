@@ -1,85 +1,91 @@
-/* Improved Navigation Bar */
 .navy {
-    background-color: #1a1a1a; /* Slightly darker black for better visual appeal */
-    color: #f0f0f0; /* Lighter text for better contrast */
+    background-color: #1a1a1a;
+    color: #f0f0f0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.25em 2em; /* Slightly reduced vertical padding */
+    padding: 1.25em 2em;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif; /* Modern, readable font */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* More pronounced, deeper shadow */
-}
-
-.logo {
-    font-size: 1.75rem; /* Slightly larger logo */
-    font-weight: 700; /* Bold font weight */
-    cursor: pointer;
-    letter-spacing: 0.05em; /* Subtle letter spacing */
-}
-
-.tabs {
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .logo-area {
     display: flex;
-    gap: 2em; /* More standard gap for tabs */
     align-items: center;
-}
-
-.tabs a {
-    color: #d4d4d4; /* Softer white for tab text */
+  }
+  
+  .hamburger {
+    display: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+  }
+  
+  .tabs a {
+    color: #d4d4d4;
     text-decoration: none;
-    font-size: 1.1rem; /* Slightly larger tab text */
+    font-size: 1.1rem;
     font-weight: 500;
-    padding: 0.6em 0.8em; /* More balanced padding */
-    border-radius: 5px; /* Soft rounded corners for hover effect */
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition */
-}
-
-.tabs a:hover {
-    color: #e2ff3e; /* Your original hover color */
-    background-color: rgba(226, 255, 62, 0.1); /* Subtle background highlight on hover */
-}
-
-/* Optional: Add an active state for the current page */
-.tabs a.active {
+    padding: 0.6em 0.8em;
+    border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .tabs a:hover {
+    color: #e2ff3e;
+    background-color: rgba(226, 255, 62, 0.1);
+  }
+  
+  .tabs a.active {
     color: #e2ff3e;
     font-weight: bold;
-}
-
-/* Improved Footer */
-.footer {
-    background-color: #222; /* Slightly lighter dark background */
-    color: #aaa; /* Muted text color */
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding: 1em 2em; /* More comfortable padding */
-    box-sizing: border-box;
-    font-size: 0.95rem;
-    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.25); /* More noticeable top shadow */
-    font-family: 'Open Sans', sans-serif; /* Another readable font */
-}
-
-.footer p {
-    margin: 0;
-    letter-spacing: 0.03em; /* Subtle letter spacing */
-}
-
-/* Optional: Add a separator line */
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 15%;
-    right: 15%;
-    height: 1px;
-    background-color: #444;
-}
+  }
+  
+  .profile-icon {
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .profile-icon:hover {
+    color: #e2ff3e;
+  }
+  
+  @media (max-width: 768px) {
+    .tabs {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #1a1a1a;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+  
+    .tabs.active {
+      display: flex;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  
+    .profile-icon {
+      margin-left: 1rem;
+    }
+  }
+  
