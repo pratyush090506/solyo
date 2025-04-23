@@ -1,7 +1,6 @@
 import React from 'react';
-import './Home.css'; // Import the CSS file
+import './Home.css'; 
 
-// Import your assets
 import HeroImage from '../assets/hero1.png';
 import Showcase1 from '../assets/hero.png';
 import Showcase2 from '../assets/hero2.png';
@@ -12,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   return (
-    <div className="home-page-content"> {/* Changed class name to avoid conflicts */}
+    <div className="home-page-content">
       <section className="hero">
         <div className="container">
           <div className="hero-content">

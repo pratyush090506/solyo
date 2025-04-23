@@ -8,9 +8,9 @@ const API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/ge
 
 const questions = [
   "Which city are you starting your journey from?",
-  "Which dreamy country would like to travel to??",
+  "Which dreamy country would like to travel to?",
   "And the specific city you'd like to visit?",
-  "What's the vibe of this escapade? (Vacay? Biz trip? Thrill-seeking?)",
+  "What's the vibe of this trip? (Vacay? Biz trip? Thrill-seeking?)",
   "How many souls are joining this quest?",
   "Zen vibes or adrenaline highs?",
   "Wallet looking chunky, comfy, or 'let's do this on a shoestring'?",
@@ -53,7 +53,7 @@ function Plan() {
 
   const generatePrompt = () => {
     const [originCity, destinationCountry, destinationCity, purpose, travelers, retreatType, budget] = answers;
-    return `Craft a short, captivating, and slightly quirky itinerary for ${travelers} adventurers jetting from ${originCity} to the dazzling ${destinationCity}, ${destinationCountry}, for a ${purpose} that leans towards a ${retreatType} experience with a ${budget} budget. Hit us with the daily highlights, maybe a unique local tip, and keep it punchy!`;
+    return `Craft a short, interesting , unique, captivating, and slightly quirky itinerary for ${travelers} adventurers jetting from ${originCity} to the dazzling ${destinationCity}, ${destinationCountry}, for a ${purpose} that leans towards a ${retreatType} experience with a ${budget} budget. Hit us with the daily highlights, maybe a unique local tip, and keep it punchy! Make the user blown off`;
   };
 
   const handleGenerateItinerary = async () => {

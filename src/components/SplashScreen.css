@@ -1,0 +1,43 @@
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff; /* Optional: match your brand theme */
+    z-index: 9999;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  
+    animation: fadeOut 1s ease-in-out forwards;
+    animation-delay: 2s;
+  }
+
+  .Logo {
+    width: 200px;
+    animation: flipIn 1.5s ease-out;
+    backface-visibility: hidden;
+  }
+  
+  @keyframes flipIn {
+    from {
+      transform: rotateY(90deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotateY(0);
+      opacity: 1;
+    }
+  }
+  
+  
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  
