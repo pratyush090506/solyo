@@ -25,8 +25,18 @@ function Capture() {
   const audioChunks = useRef<Blob[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    setImage(URL.createObjectURL(acceptedFiles[0]));
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+  
+    reader.onloadend = () => {
+      setImage(reader.result as string); 
+    };
+  
+    if (file) {
+      reader.readAsDataURL(file); 
+    }
   };
+  
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: { "image/*": [] },
@@ -50,8 +60,6 @@ function Capture() {
   };
 
   const saveMemory = async () => {
-    console.log("Saving Memory...", { image, note, audioURL, location });
-
     const localMemoryData: Memory = {
       note,
       location,
@@ -59,7 +67,7 @@ function Capture() {
       imageURL: image || null,
       audioURL: audioURL || null,
     };
-
+  
     try {
       localStorage.setItem("capturedMemory", JSON.stringify(localMemoryData));
       setCapturedMemory(localMemoryData);

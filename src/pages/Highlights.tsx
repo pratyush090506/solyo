@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import useMemoryStore from '../components/Store';
-import './Highlights.css';
+import React, { useEffect, useState } from "react";
+import useMemoryStore from "../components/Store";
+import "./Highlights.css";
 
 const Highlights: React.FC = () => {
   const { capturedMemory } = useMemoryStore();
   const [memory, setMemory] = useState(capturedMemory);
 
   useEffect(() => {
-    setMemory(capturedMemory);
+    if (!capturedMemory) {
+      const storedMemory = localStorage.getItem("capturedMemory");
+      if (storedMemory) {
+        setMemory(JSON.parse(storedMemory));
+      }
+    } else {
+      setMemory(capturedMemory);
+    }
   }, [capturedMemory]);
 
   return (
     <div className="highlights-container">
-      <h2 style={{color: "white"}}>Your Highlighted Memory</h2>
+      <h2 style={{ color: "white" }}>Your Highlighted Memory</h2>
       {memory ? (
         <div className="memory-card">
           {memory.imageURL && (
@@ -20,9 +27,7 @@ const Highlights: React.FC = () => {
           )}
 
           <div className="memory-content">
-            {memory.note && (
-              <p className="highlight-note">📝 {memory.note}</p>
-            )}
+            {memory.note && <p className="highlight-note">📝 {memory.note}</p>}
 
             {memory.audioURL && (
               <div className="audio-wrapper">
@@ -30,8 +35,8 @@ const Highlights: React.FC = () => {
               </div>
             )}
 
-            {memory.location && memory.location.lat && memory.location.lon && (
-              <p className="highlight-location" >
+            {memory.location && (
+              <p className="highlight-location">
                 📍 {memory.location.lat.toFixed(4)}, {memory.location.lon.toFixed(4)}
               </p>
             )}
